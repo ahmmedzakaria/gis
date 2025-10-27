@@ -15,19 +15,23 @@ ALTER TABLE public.geoboundaries_bgd_adm2_simplified
 ADD COLUMN IF NOT EXISTS center_point geometry(Point, 4326);
 
 UPDATE public.geoboundaries_bgd_adm2_simplified
-SET center_point = ST_Centroid(geom);
+SET center_point = ST_PointOnSurface(geom);
 
 ALTER TABLE public.geoboundaries_bgd_adm3_simplified
 ADD COLUMN IF NOT EXISTS center_point geometry(Point, 4326);
 
+/*
+computing a point guaranteed to lie inside the polygon,
+using ST_PointOnSurface() instead of ST_Centroid().
+*/
 UPDATE public.geoboundaries_bgd_adm3_simplified
-SET center_point = ST_Centroid(geom);
+SET center_point = ST_PointOnSurface(geom);
 
 ALTER TABLE public.geoboundaries_bgd_adm4_simplified
 ADD COLUMN IF NOT EXISTS center_point geometry(Point, 4326);
 
 UPDATE public.geoboundaries_bgd_adm4_simplified
-SET center_point = ST_Centroid(geom);
+SET center_point = ST_PointOnSurface(geom);
 
 
 
